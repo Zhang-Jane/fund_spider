@@ -30,6 +30,9 @@ SETTINGS_PRIORITIES = {
     'cmdline': 40,
 }
 ```
+配置环境：
+1. local_settings.py(开发环境)
+2. settings.py(部署环境)
 ## 创建表的sql
 ```sql
 CREATE TABLE IF NOT EXISTS `funds`(

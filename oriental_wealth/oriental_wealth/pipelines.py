@@ -8,11 +8,8 @@
 import json
 import os
 import traceback
-
 import pymysql
 from pymysql.err import Error
-from itemadapter import ItemAdapter
-from scrapy.crawler import logger
 
 
 class OrientalWealthPipeline:
@@ -84,24 +81,19 @@ class OrientalWealthPipeline:
         :param spider:
         :return:
         """
+        values = (
+            item.get('fund_code'),
+            item.get('fund_name'),
+            json.dumps(item)
+        )
         if spider.name == 'dongfang_funds':
-            vaules = (item.get('fund_code'), item.get('fund_name'), json.dumps(item))
-            sql = f"INSERT INTO {self.fund_data_table} (fund_id, fund_title, info) VALUES {vaules}"
+            sql = f"INSERT INTO {self.fund_data_table} (fund_id, fund_title, info) VALUES {values}"
             self.insert_data2mysql(sql)
-            print(f"正在存储1：{spider.name:=^30}")
         elif spider.name == 'fund_rate_info':
-            vaules = (item.get('fund_code'), item.get('fund_name'), json.dumps(item))
-            sql = f"INSERT INTO {self.fund_rate_table} (fund_id, fund_title, info) VALUES {vaules}"
+            sql = f"INSERT INTO {self.fund_rate_table} (fund_id, fund_title, info) VALUES {values}"
             self.insert_data2mysql(sql)
-            print(sql)
-            print(f"正在存储2：{spider.name:=^30}")
-        elif spider.name == 'fund_units_cumulative_equity':
-            vaules = (item.get('fund_code'), item.get('fund_name'), json.dumps(item))
-            sql = f"INSERT INTO {self.fund_equity_table} (fund_id, fund_title, info) VALUES {vaules}"
+            sql = f"INSERT INTO {self.fund_equity_table} (fund_id, fund_title, info) VALUES {values}"
             self.insert_data2mysql(sql)
-            print(f"正在存储3：{spider.name:=^30}")
-        print(item)
-
         # 交给下一个pipline进行处理
         return item
 

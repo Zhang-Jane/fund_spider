@@ -1,11 +1,8 @@
 import os
 import time
-
 import scrapy
-
-from oriental_wealth.utils.build_url_para import join_url_para
 from scrapy import Request
-
+from oriental_wealth.utils.build_url_para import join_url_para
 from oriental_wealth.utils.tasks import get_tasks
 
 
@@ -40,7 +37,6 @@ class FundUnitsCumulativeEquitySpider(scrapy.Spider):
             }
             base_url = self.settings.attributes.get("BASE_URL").value
             full_url = join_url_para(base_url, self.sub_path, params)
-            print(full_url)
             yield Request(full_url, meta={"fund_name": fund_name, "code": code}, callback=self.parse_units, dont_filter=True)
 
     def parse_units(self, response):
@@ -49,8 +45,7 @@ class FundUnitsCumulativeEquitySpider(scrapy.Spider):
         try:
             data = response.json()
         except Exception as e:
-            self.logger.error(e)
-            raise Exception(f"{self.name} =》 解析错误")
+            raise Exception(f"{self.name} =》 {e}")
         item = {
             "crawler_batch_id": self.crawler_batch_id,
             "fund_code": code,

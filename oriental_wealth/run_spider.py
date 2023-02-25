@@ -50,8 +50,8 @@ def run_spider(spider_name, pools=1):
 
 if __name__ == '__main__':
     spider_list = [
-        # "dongfang_funds",
-        # "fund_rate_info",
+        "dongfang_funds",
+        "fund_rate_info",
         "fund_units_cumulative_equity"
     ]
     for spider_name in spider_list:

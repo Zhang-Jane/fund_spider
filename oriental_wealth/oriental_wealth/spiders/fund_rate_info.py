@@ -1,11 +1,8 @@
 import os
 import time
-
 import scrapy
 from scrapy import Request
-
 from oriental_wealth.utils.build_url_para import join_url_para
-
 from oriental_wealth.utils.tasks import get_tasks
 
 
@@ -48,8 +45,7 @@ class FundRateInfoSpider(scrapy.Spider):
         try:
             data = response.json()
         except Exception as e:
-            self.logger.error(e)
-            raise Exception(f"{self.name} =》 解析错误")
+            raise Exception(f"{self.name} =》 {e}")
         item = {
             "crawler_batch_id": self.crawler_batch_id,
             "fund_code": code,

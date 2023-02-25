@@ -1,10 +1,9 @@
 import re
 import time
-from re import Match
 import scrapy
-from fake_useragent import UserAgent
 from scrapy import Request
-
+from re import Match
+from fake_useragent import UserAgent
 from oriental_wealth.utils.build_url_para import join_url_para
 
 
@@ -13,12 +12,10 @@ class FundsSpider(scrapy.Spider):
     allowed_domains = ["*"]
     # 这里配置的优先级高于全局
     custom_settings = {
-        "USER_AGENT": UserAgent().random,
         "CONCURRENT_REQUESTS": 1,
-        "DOWNLOAD_DELAY": 1,
+        "DOWNLOAD_DELAY": 0.1,
         "DOWNLOAD_TIMEOUT": 4,
         "RETRY_TIMES": 3,
-        "CLOSE_SPIDER_AFTER_IDLE_TIMES": 3,
     }
 
     def __init__(self, crawler_batch_id, **kwargs):
@@ -45,7 +42,6 @@ class FundsSpider(scrapy.Spider):
             }
             base_url = self.settings.attributes.get("BASE_URL").value
             full_url = join_url_para(base_url, self.sub_path, params)
-            print(full_url)
             yield Request(full_url, meta={"type": fund_type}, callback=self.parse, dont_filter=True)
 
     def replace(self, matched: Match):
@@ -73,8 +69,7 @@ class FundsSpider(scrapy.Spider):
         try:
             data = response.json()
         except Exception as e:
-            self.logger.error(e)
-            raise Exception(f"{self.name} =》 解析错误")
+            raise Exception(f"{self.name} =》 {e}")
         # 如果请求的下一页接口还有数据
         datas = data.get("Datas")
         if datas:
