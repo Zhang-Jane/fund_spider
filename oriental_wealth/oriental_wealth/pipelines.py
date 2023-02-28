@@ -64,7 +64,7 @@ class OrientalWealthPipeline:
             )
             self.cursor = self.connect.cursor()
         else:
-            raise Error('数据库账号或密码错误')
+            raise Error(f'数据库账号或密码错误：{self.user}，{self.passwd}')
 
     def insert_data2mysql(self, sql):
         try:

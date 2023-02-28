@@ -123,9 +123,12 @@ LOGSTATS_INTERVAL = 5
 LOG_LEVEL = 'INFO'
 
 # 线上数据库配置
-MYSQL_HOST = ''
-MYSQL_DATABASE = ''
+MYSQL_HOST = 'oriental_wealth_mysql'
+MYSQL_DATABASE = 'oriental_wealth'
 MYSQL_POST = 3306
+FUND_DATA_TABLE = 'funds'
+FUND_RATE_TABLE = 'fund_rate_info'
+FUND_EQUITY_TABLE = 'fund_units_cumulative_equity'
 
 EXTENSIONS = {
     'oriental_wealth.extensions.monitor_count.MonitorStat': 0

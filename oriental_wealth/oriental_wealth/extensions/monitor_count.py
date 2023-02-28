@@ -89,6 +89,5 @@ class MonitorStat(object):
         :param spider:
         :return:
         """
-        if spider.name == "oriental_wealth":
-            stats = self.handle_stat()
-            spider.logger.info(stats)
+        stats = self.handle_stat()
+        spider.logger.info(stats)

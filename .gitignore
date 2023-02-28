@@ -77,7 +77,7 @@ celerybeat-schedule
 
 # dotenv
 .env
-
+.spider_env
 # virtualenv
 venv/
 ENV/
@@ -91,3 +91,4 @@ ENV/
 # PyCharm
 .idea/
 utils/nohup.out
+/.vscode/
