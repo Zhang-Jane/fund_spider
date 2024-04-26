@@ -67,5 +67,6 @@ docker build -f --no-cache . -t oriental_wealth:v1
 docker run  -it  --name  oriental_wealth  oriental_wealth:v1  /bin/bash
 ```
 
-### 第二部：制作docker-compose
+### 第二步：制作docker-compose
+详细查看docker-compose文件
 
